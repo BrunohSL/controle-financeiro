@@ -2,23 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AccountService;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
+    /**
+     * @var AccountService
+     */
+    private $accountService;
+
+    public function __construct()
+    {
+        $this->accountService = new AccountService();
+    }
+
     public function show(Request $request)
     {
-        // Get the authenticated user
-        $user = $request->user();
+        $params = $request->all();
 
-        // Return the user data as a JSON response
-        return response()->json($user);
+        $accounts = $this->accountService->showUsers($params);
+
+        return response()->json($accounts);
     }
 
     public function create(Request $request)
     {
-        // Logic to create a new account
-        // This is just a placeholder for the actual implementation
-        return response()->json(['message' => 'Account created successfully']);
+        $params = $request->all();
+
+        $account = $this->accountService->createUser($params);
+
+        return response()->json([
+            'message' => 'Account created successfully',
+            'account' => $account
+        ])->setStatusCode(201, 'Created');
     }
 }
