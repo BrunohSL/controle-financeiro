@@ -8,5 +8,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AuthController::class, 'auth']);
 
 // Accounts
-Route::get('/accounts', [AccountController::class, 'show']);
+Route::get('/accounts/show-accounts', [AccountController::class, 'show']);
 Route::get('/accounts/create-account', [AccountController::class, 'create']);
