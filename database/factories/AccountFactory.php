@@ -16,9 +16,15 @@ class AccountFactory extends Factory
      */
     public function definition(): array
     {
+        $accountNumber = fake()->randomNumber(6, true) . "-" . fake()->randomDigit();
+        $branchNumber = fake()->randomNumber(4, true) . "-" . fake()->randomDigit();
+
         return [
-            // "msg" => "success",
-            // "status" => 200,
+            'name' => fake()->name(),
+            'bank_id' => BankFactory::BANK_IDS[array_rand(BankFactory::BANK_IDS)], // Salvar no banco e pegar daqui
+            'number' => $accountNumber,
+            'branch' => $branchNumber,
+            'opening_balance' => fake()->numberBetween(1000, 1000000),
         ];
     }
 }
