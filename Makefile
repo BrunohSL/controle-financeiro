@@ -23,7 +23,9 @@ mysqlroot:
 bash:
 	docker exec -it controle-financeiro-laravel.test-1 bash
 
-# Rodar dentro do container
+permissao:
+	sudo chown -R bruno:www-data .
 
+# Rodar dentro do container
 mfs:
 	php artisan migrate:fresh --seed
