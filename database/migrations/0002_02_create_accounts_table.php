@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('bank_id');
-            $table->string('number');
-            $table->string('branch');
+            $table->string('name', 50);
+            $table->string('bank_id', 36);
+            $table->string('number', 20);
+            $table->string('branch', 10);
             $table->integer('opening_balance');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
