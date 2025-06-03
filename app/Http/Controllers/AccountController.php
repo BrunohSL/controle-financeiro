@@ -60,4 +60,28 @@ class AccountController extends Controller
             'account' => $account
         ])->setStatusCode(201, 'Created');
     }
+
+    /**
+     * Cria uma nova conta bancária
+     *
+     * @method: PUT
+     * @link: api/accounts/update-account
+     *
+     * @param \App\Http\Requests\UpdateAccountRequest $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateAccountRequest $request)
+    {
+        $params = $request->all();
+        dd($params);
+
+        $account = $this->accountService->update($params);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Account updated successfully',
+            'account' => $account
+        ])->setStatusCode(201, 'Created');
+    }
 }
