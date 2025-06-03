@@ -26,13 +26,24 @@ class AccountController extends Controller
         return response()->json($accounts);
     }
 
-    public function create(Request $request)
+    /**
+     * Cria uma nova conta bancária
+     *
+     * @method: POST
+     * @link: api/accounts/create-account
+     *
+     * @param \App\Http\Requests\CreateAccountRequest $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(CreateAccountRequest $request)
     {
         $params = $request->all();
 
-        $account = $this->accountService->createUser($params);
+        $account = $this->accountService->create($params);
 
         return response()->json([
+            'status' => 'success',
             'message' => 'Account created successfully',
             'account' => $account
         ])->setStatusCode(201, 'Created');
