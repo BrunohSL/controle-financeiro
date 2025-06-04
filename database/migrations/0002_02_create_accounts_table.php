@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('bank_id', 36);
             $table->string('number', 20);
             $table->string('branch', 10);
-            $table->integer('opening_balance');
+            $table->integer('balance')->default(0);
+            $table->integer('opening_balance')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
