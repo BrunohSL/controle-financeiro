@@ -22,15 +22,10 @@ return [
     'icon_resources' => [
         'paths' => [
             'heroicons' => 'resources/views/components/icons/heroicons',
-            // 'default' => 'resources/views/components/icons',
-            // 'outline' => 'vendor/wireui/wireui/resources/views/components/icons/outline',
-            // 'solid'   => 'vendor/wireui/wireui/resources/views/components/icons/solid',
         ],
-
         'allowed' => [
             'pencil-square',
         ],
-
         'attributes' => ['class' => 'w-5 text-red-600'],
     ],
 
