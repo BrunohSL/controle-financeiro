@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
+use App\Http\Requests\KillAccountRequest;
 use App\Services\AccountService;
 use Illuminate\Http\Request;
 
@@ -44,7 +45,7 @@ class AccountController extends Controller
      * @method: POST
      * @link: api/accounts/create-account
      *
-     * @param \App\Http\Requests\CreateAccountRequest $request
+     * @param CreateAccountRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -62,19 +63,18 @@ class AccountController extends Controller
     }
 
     /**
-     * Cria uma nova conta bancária
+     * Editar uma conta bancária
      *
      * @method: PUT
      * @link: api/accounts/update-account
      *
-     * @param \App\Http\Requests\UpdateAccountRequest $request
+     * @param UpdateAccountRequest $request
      *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateAccountRequest $request)
     {
         $params = $request->all();
-        dd($params);
 
         $account = $this->accountService->update($params);
 
@@ -83,5 +83,28 @@ class AccountController extends Controller
             'message' => 'Account updated successfully',
             'account' => $account
         ])->setStatusCode(201, 'Created');
+    }
+
+    /**
+     * Deleta uma conta bancária
+     *
+     * @method: DELETE
+     * @link: api/accounts/delete-account
+     *
+     * @param KillAccountRequest $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kill(KillAccountRequest $request)
+    {
+        $params = $request->all();
+
+        $account = $this->accountService->kill($params['id']);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Account deleted successfully',
+            'account' => $account
+        ])->setStatusCode(200, 'OK');
     }
 }

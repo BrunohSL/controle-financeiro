@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAccountRequest extends FormRequest
+class KillAccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,6 @@ class UpdateAccountRequest extends FormRequest
     {
         return [
             'id' => 'required|string|min:36|max:36',
-            'name' => 'string|max:50',
-            'number' => 'string|max:20',
-            'branch' => 'string|max:10',
-            'opening_balance' => 'integer',
         ];
     }
 
