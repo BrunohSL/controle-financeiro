@@ -2,6 +2,9 @@ help:
 	@echo "Escolha um dos comandos abaixo:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
+front:
+	npm run dev
+
 up:
 	./vendor/bin/sail up
 
