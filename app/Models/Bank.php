@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bank extends Model
 {
-    /** @use HasFactory<\Database\Factories\BankFactory> */
-    use HasFactory;
-
     use HasFactory;
     use HasUuids;
 
