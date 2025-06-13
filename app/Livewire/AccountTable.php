@@ -16,6 +16,7 @@ use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 final class AccountTable extends PowerGridComponent
 {
     public string $tableName = 'account-table';
+    protected $listeners = ['account-created' => '$refresh'];
 
     public function setUp(): array
     {
@@ -23,6 +24,8 @@ final class AccountTable extends PowerGridComponent
 
         return [
             PowerGrid::header()
+                ->showToggleColumns()
+                ->showSoftDeletes()
                 ->showSearchInput(),
             PowerGrid::footer()
                 ->showPerPage()
@@ -86,7 +89,15 @@ final class AccountTable extends PowerGridComponent
             Button::add('edit')
                 ->slot('Editar')
                 ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->class(
+                    'pg-btn-white
+                    dark:ring-pg-primary-600
+                    dark:border-pg-primary-600
+                    dark:hover:bg-pg-primary-700
+                    dark:ring-offset-pg-primary-800
+                    dark:text-pg-primary-300
+                    dark:bg-pg-primary-700'
+                )
                 ->dispatch('edit', ['rowId' => $row->id])
         ];
     }
