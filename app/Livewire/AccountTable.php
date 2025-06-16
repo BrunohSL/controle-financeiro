@@ -58,8 +58,8 @@ final class AccountTable extends PowerGridComponent
                 ->searchable()
                 ->sortable(),
 
-            // Column::make('Created at', 'created_at')
-            //     ->hidden(),
+            Column::make('Created at', 'created_at')
+                ->hidden(),
 
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable()
@@ -80,7 +80,19 @@ final class AccountTable extends PowerGridComponent
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert('.$rowId.')');
+        // $account = Account::findOrFail($rowId);
+
+        // $accountData = [
+        //     'accountId' => $account->id,
+        //     'name' => $account->name,
+        //     'bank_id' => $account->bank_id,
+        //     'number' => $account->number,
+        //     'branch' => $account->branch,
+        //     'opening_balance' => $account->opening_balance,
+        // ];
+
+        $this->dispatch('edit-account', ['accountId' => $rowId]);
+        // $this->dispatch('edit-account', $accountData);
     }
 
     public function actions(Account $row): array
@@ -99,18 +111,17 @@ final class AccountTable extends PowerGridComponent
                     dark:bg-pg-primary-700'
                 )
                 ->dispatch('edit', ['rowId' => $row->id])
+                // ->dispatch('edit-account', ['accountId' => $row->id])
         ];
     }
 
-    /*
-    public function actionRules(Account $row): array
-    {
-       return [
-            // Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($row) => $row->id === 1)
-                ->hide(),
-        ];
-    }
-    */
+    // public function actionRules(Account $row): array
+    // {
+    //    return [
+    //         // Hide button edit for ID 1
+    //         Rule::button('edit')
+    //             ->when(fn($row) => $row->id === 1)
+    //             ->hide(),
+    //     ];
+    // }
 }
