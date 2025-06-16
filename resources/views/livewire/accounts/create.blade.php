@@ -1,7 +1,6 @@
-<div x-show="open" class="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
+<div x-show="openCreate" class="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
     <div class="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg w-full max-w-md">
         <h2 class="text-xl font-bold mb-4">Nova Conta Bancária</h2>
-        {{-- <form method="POST" action="{{ route('account.create') }}"> --}}
         <form wire:submit.prevent="save" class="space-y-4">
             @csrf
             <div class="mb-4">
@@ -48,7 +47,7 @@
                 @error('balance') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
             <div class="flex justify-end gap-2">
-                <button type="button" @click="open = false" class="px-4 py-2 text-black bg-gray-300 rounded">Cancelar</button>
+                <button type="button" @click="openCreate = false" class="px-4 py-2 text-black bg-gray-300 rounded">Cancelar</button>
                 <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Salvar</button>
             </div>
         </form>
