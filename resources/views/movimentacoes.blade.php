@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Contas bancárias')">
+<x-layouts.app :title="__('Movimentacoes financeiras')">
     <div
         x-data="{
             openCreate: false,
@@ -53,29 +53,19 @@
             <span x-text="message"></span>
         </div>
 
-        <h1 class="text-3xl font-bold mb-4">Contas bancárias</h1>
+        <h1 class="text-3xl font-bold mb-4">Movimentações financeiras</h1>
         <div>
-            <flux:button variant="primary" @click="openCreate = true">
+            <flux:button variant="primary" @click="openNovaMovimentacao = true">
                 <x-icon name="plus" class="me-2" />
-                Nova conta
+                Nova movimentação
             </flux:button>
         </div>
 
         {{-- Create Account Modal --}}
-        <livewire:accounts.create />
-
-        {{-- Edit Account Modal --}}
-        <livewire:accounts.edit
-            {{-- :accountId="accountId"
-            :name="name"
-            :bankId="bank_id"
-            :number="number"
-            :branch="branch"
-            :openingBalance="opening_balance" --}}
-        />
+        <livewire:movimentacoes.create />
 
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <livewire:account-table />
+            <livewire:movimentacoes-table />
         </div>
     </div>
 </x-layouts.app>
