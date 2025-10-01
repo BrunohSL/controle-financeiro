@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Account;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,12 @@ class IncomeFactory extends Factory
      */
     public function definition(): array
     {
+        $accountIds = Account::pluck('id')->toArray();
+
         return [
-            //
+            'account_id' => $accountIds[array_rand($accountIds)], // Salvar no banco e pegar daqui
+            'value' => fake()->numberBetween(100, 10000),
+            'date' => fake()->dateTimeBetween('-1 month', 'now'),
         ];
     }
 }
