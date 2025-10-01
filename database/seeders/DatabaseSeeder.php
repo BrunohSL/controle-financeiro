@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Account;
+use App\Models\Income;
 use App\Models\User;
 
 class DatabaseSeeder extends Seeder
@@ -26,5 +27,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Account::factory()->count(2)->create();
+
+        Income::factory()->count(10)->create();
     }
 }
