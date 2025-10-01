@@ -44,8 +44,9 @@ final class AccountTable extends PowerGridComponent
             ->add('id')
             ->add('name')
             ->add('name_lower', fn (Account $model) => strtolower(e($model->name)))
+            ->add('balance', fn (Account $model) => 'R$ ' . number_format($model->balance / 100, 2, ',', '.'))
             ->add('created_at')
-            ->add('created_at_formatted', fn (Account $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->add('created_at_formatted', fn (Account $model) => Carbon::parse($model->created_at)->format('d/m/Y'));
     }
 
     public function columns(): array
@@ -58,8 +59,10 @@ final class AccountTable extends PowerGridComponent
                 ->searchable()
                 ->sortable(),
 
-            // Column::make('Created at', 'created_at')
-            //     ->hidden(),
+            Column::make('Balance', 'balance'),
+
+            Column::make('Created at', 'created_at')
+                ->hidden(),
 
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable()
@@ -77,14 +80,39 @@ final class AccountTable extends PowerGridComponent
         ];
     }
 
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
-    {
-        $this->js('alert('.$rowId.')');
-    }
+    // #[\Livewire\Attributes\On('edit')]
+    // public function edit($rowId): void
+    // {
+    //     // $account = Account::findOrFail($rowId);
+
+    //     // $accountData = [
+    //     //     'accountId' => $account->id,
+    //     //     'name' => $account->name,
+    //     //     'bank_id' => $account->bank_id,
+    //     //     'number' => $account->number,
+    //     //     'branch' => $account->branch,
+    //     //     'opening_balance' => $account->opening_balance,
+    //     // ];
+
+    //     // dd("Aqui");
+
+    //     $this->dispatch('edit-account', ['accountId' => $rowId]);
+    //     // $this->dispatch('edit-account', $accountData);
+    // }
 
     public function actions(Account $row): array
     {
+        $account = Account::findOrFail($row->id);
+
+        $accountData = [
+            'accountId' => $account->id,
+            'name' => $account->name,
+            'bank_id' => $account->bank_id,
+            'number' => $account->number,
+            'branch' => $account->branch,
+            'opening_balance' => $account->opening_balance,
+        ];
+
         return [
             Button::add('edit')
                 ->slot('Editar')
@@ -98,19 +126,18 @@ final class AccountTable extends PowerGridComponent
                     dark:text-pg-primary-300
                     dark:bg-pg-primary-700'
                 )
-                ->dispatch('edit', ['rowId' => $row->id])
+                // ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit-account', $accountData)
         ];
     }
 
-    /*
-    public function actionRules(Account $row): array
-    {
-       return [
-            // Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($row) => $row->id === 1)
-                ->hide(),
-        ];
-    }
-    */
+    // public function actionRules(Account $row): array
+    // {
+    //    return [
+    //         // Hide button edit for ID 1
+    //         Rule::button('edit')
+    //             ->when(fn($row) => $row->id === 1)
+    //             ->hide(),
+    //     ];
+    // }
 }
